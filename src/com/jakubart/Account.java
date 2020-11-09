@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class Account {
 
+    private int id;
     private String cardNoumber;
     private String pin;
     private int balance;
@@ -12,6 +13,13 @@ public class Account {
         this.cardNoumber = cardNoumberGenerator();
         this.pin = pinGenerator();
         this.balance = 0;
+    }
+
+    public Account(int id, String cardNoumber, String pin, int balance) {
+        this.id = id;
+        this.cardNoumber = cardNoumber;
+        this.pin = pin;
+        this.balance = balance;
     }
 
     public String getCardNoumber() {

@@ -5,12 +5,12 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
         int choice;
         String cardNoumber;
         String pin;
-        Bank bank = new Bank();
+        Bank bank = new Bank("banking.db");
+
         System.out.println("1. Create an account");
         System.out.println("2. Log into account");
         System.out.println("0. Exit");
@@ -21,7 +21,7 @@ public class Main {
             switch (choice) {
                 case 1:
                     Account account = new Account();
-                    while (bank.checkIfExistAccount(account)) {
+                    while (bank.checkIfExistAccount(account.getCardNoumber())) {
                         account.setCardNoumber(account.cardNoumberGenerator());
                     }
                     if (bank.addAccount(account)) {
