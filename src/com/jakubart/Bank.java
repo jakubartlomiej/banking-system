@@ -1,57 +1,32 @@
 package com.jakubart;
 
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class Bank {
 
-    private ArrayList<Account> accountsList;
+    private final DatabaseHelper databaseHelper = new DatabaseHelper();
 
-    public Bank() {
-        accountsList = new ArrayList<>();
-    }
-
-    public ArrayList<Account> getAccountsList() {
-        return accountsList;
-    }
-
-    public void setAccountsList(ArrayList<Account> accountsList) {
-        this.accountsList = accountsList;
+    public Bank(String fileName) {
+        databaseHelper.createDatabase(fileName);
     }
 
     public boolean addAccount(Account account) {
-        return accountsList.add(account);
+        return databaseHelper.addAccount(account);
 
     }
 
-    public boolean checkIfExistAccount(Account account) {
-        boolean accountExsist = false;
-        for (Account item : accountsList) {
-            if (item.getCardNoumber().equals(account.getCardNoumber())) {
-                accountExsist = true;
-                break;
-            }
-        }
-        return accountExsist;
+    public boolean checkIfExistAccount(String cardNumber) {
+        return databaseHelper.findByCardNumber(cardNumber) != null;
     }
 
     public boolean login(String card, String pin) {
-        boolean login = false;
-        for (Account item : accountsList) {
-            if (item.getCardNoumber().equals(card) && item.getPin().equals(pin)) {
-                login = true;
-                break;
-            }
-        }
-        return login;
+        return databaseHelper.loginAccount(card, pin);
     }
 
     public int checkAccountBalance(String cardNoumber) {
         int balance = 0;
-        for (Account item : accountsList) {
-            if (item.getCardNoumber().equals(cardNoumber)) {
-                balance = item.getBalance();
-                break;
-            }
+        if (databaseHelper.findByCardNumber(cardNoumber) != null) {
+            balance = Objects.requireNonNull(databaseHelper.findByCardNumber(cardNoumber)).getBalance();
         }
         return balance;
     }
