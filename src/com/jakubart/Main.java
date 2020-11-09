@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-
+        DatabaseHelper.getConnection();
         Scanner scanner = new Scanner(System.in);
         int choice;
         String cardNoumber;
