@@ -56,7 +56,6 @@ public class DatabaseHelper {
             pstmt.setString(2, account.getPin());
             pstmt.executeUpdate();
             status = true;
-            System.out.println(sql);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -76,7 +75,6 @@ public class DatabaseHelper {
                         , rs.getInt("balance"));
             }
         } catch (SQLException throwables) {
-            //System.out.println(throwables.getMessage());
             throwables.printStackTrace();
         }
         return null;
