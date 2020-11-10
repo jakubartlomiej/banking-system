@@ -10,9 +10,6 @@ public class Account {
     private int balance;
 
     public Account() {
-        this.cardNoumber = cardNoumberGenerator();
-        this.pin = pinGenerator();
-        this.balance = 0;
     }
 
     public Account(int id, String cardNoumber, String pin, int balance) {
@@ -20,6 +17,14 @@ public class Account {
         this.cardNoumber = cardNoumber;
         this.pin = pin;
         this.balance = balance;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCardNoumber() {
