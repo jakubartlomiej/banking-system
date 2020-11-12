@@ -55,7 +55,7 @@ public class Account {
         Random random = new Random();
         final String BIN = "400000";
         String acountIdentifier = String.valueOf(random.nextInt(899999999) + 100000000);
-        return BIN + acountIdentifier + luhnaAlgorithmGenerator(BIN.concat(acountIdentifier).toCharArray());
+        return BIN + acountIdentifier + luhnaAlgorithmGenerator(BIN.concat(acountIdentifier).concat("0").toCharArray());
     }
 
     public String pinGenerator() {
