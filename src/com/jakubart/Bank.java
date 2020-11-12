@@ -36,4 +36,8 @@ public class Bank {
     public boolean doTransfer(int amount, String recipient, String sender){
         return databaseHelper.makingTransfer(amount,recipient,sender);
     }
+
+    public boolean closeAccount(String cardNumber){
+        return databaseHelper.deleteAccount(cardNumber);
+    }
 }
