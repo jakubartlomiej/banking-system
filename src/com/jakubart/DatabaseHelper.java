@@ -144,5 +144,20 @@ public class DatabaseHelper {
         }
         return status;
     }
+
+    public boolean deleteAccount(String cardNumber){
+        boolean status = false;
+        String sql = "DELETE FROM card where number = ?";
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, cardNumber);
+            pstmt.executeUpdate();
+            status = true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return status;
+
+    }
 }
 
