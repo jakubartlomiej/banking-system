@@ -1,4 +1,4 @@
-# SIMPLE BANKIN SYSTEM
+# SIMPLE BANKING SYSTEM
 > Project develop simple banking system with database.
 
 ## Technologys:
