@@ -55,7 +55,7 @@ public class Account {
         Random random = new Random();
         final String BIN = "400000";
         String acountIdentifier = String.valueOf(random.nextInt(899999999) + 100000000);
-        return BIN + acountIdentifier + luhnaAlgorithmGenerator(BIN.concat(acountIdentifier).toCharArray());
+        return BIN + acountIdentifier + luhnaAlgorithmGenerator(BIN.concat(acountIdentifier).concat("0").toCharArray());
     }
 
     public String pinGenerator() {
@@ -67,9 +67,9 @@ public class Account {
         return sb.toString();
     }
 
-    private int luhnaAlgorithmGenerator(char[] cardNoumber) {
+    public int luhnaAlgorithmGenerator(char[] cardNoumber) {
         int sumCardNoumbers = 0;
-        for (int i = 0; i < cardNoumber.length; i++) {
+        for (int i = 0; i < cardNoumber.length - 1; i++) {
             int temp = 0;
             if (i % 2 == 0) {
                 temp = Integer.parseInt(String.valueOf(cardNoumber[i])) * 2;
@@ -79,8 +79,8 @@ public class Account {
                 cardNoumber[i] = Character.forDigit(temp, 10);
             }
         }
-        for (char c : cardNoumber) {
-            sumCardNoumbers += Integer.parseInt(String.valueOf(c));
+        for (int i = 0; i < cardNoumber.length - 1; i++) {
+            sumCardNoumbers += Integer.parseInt(String.valueOf(cardNoumber[i]));
         }
         sumCardNoumbers = sumCardNoumbers % 10;
         return sumCardNoumbers == 0 ? 0 : 10 - sumCardNoumbers % 10;

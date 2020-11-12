@@ -12,9 +12,7 @@ public class Bank {
 
     public boolean addAccount(Account account) {
         return databaseHelper.addAccount(account);
-
     }
-
     public boolean checkIfExistAccount(String cardNumber) {
         return databaseHelper.findByCardNumber(cardNumber) != null;
     }
@@ -29,5 +27,17 @@ public class Bank {
             balance = Objects.requireNonNull(databaseHelper.findByCardNumber(cardNoumber)).getBalance();
         }
         return balance;
+    }
+
+    public boolean addIncome(int income, String cardNumber){
+       return databaseHelper.updateBalance(income,cardNumber);
+    }
+
+    public boolean doTransfer(int amount, String recipient, String sender){
+        return databaseHelper.makingTransfer(amount,recipient,sender);
+    }
+
+    public boolean closeAccount(String cardNumber){
+        return databaseHelper.deleteAccount(cardNumber);
     }
 }

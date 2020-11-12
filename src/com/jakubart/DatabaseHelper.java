@@ -40,7 +40,6 @@ public class DatabaseHelper {
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
-            System.out.println("Table has been created");
         } catch (SQLException throwables) {
             System.out.println("Unable to create table");
             throwables.printStackTrace();
@@ -95,6 +94,70 @@ public class DatabaseHelper {
             throwables.printStackTrace();
         }
         return status;
+    }
+
+    public boolean updateBalance(int income, String cardNumber) {
+        boolean status = false;
+        String sql = "UPDATE card SET balance = balance + ? where number = ? ";
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, income);
+            pstmt.setString(2, cardNumber);
+            pstmt.executeUpdate();
+            status = true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return status;
+    }
+
+    public boolean makingTransfer(int amount, String recipient, String sender) {
+        boolean status = false;
+        String sqlSender = "UPDATE card SET balance = balance - ? where number = ?";
+        String sqlRecipient = "UPDATE card SET balance = balance + ? where number = ?";
+        ResultSet rs = null;
+        Connection conn = null;
+        PreparedStatement pstmt1 = null;
+        PreparedStatement pstmt2 = null;
+        try {
+            conn = this.getConnection();
+            if (conn == null) {
+                return status;
+            }
+            conn.setAutoCommit(false);
+            pstmt1 = conn.prepareStatement(sqlSender);
+            pstmt1.setInt(1, amount);
+            pstmt1.setString(2, sender);
+            int rowAffected = pstmt1.executeUpdate();
+            if (rowAffected != 1) {
+                conn.rollback();
+                return status;
+            }
+            pstmt2 = conn.prepareStatement(sqlRecipient);
+            pstmt2.setInt(1, amount);
+            pstmt2.setString(2, recipient);
+            pstmt2.executeUpdate();
+            conn.commit();
+            status = true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return status;
+    }
+
+    public boolean deleteAccount(String cardNumber){
+        boolean status = false;
+        String sql = "DELETE FROM card where number = ?";
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, cardNumber);
+            pstmt.executeUpdate();
+            status = true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return status;
+
     }
 }
 
