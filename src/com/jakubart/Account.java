@@ -5,7 +5,7 @@ import java.util.Random;
 public class Account {
 
     private int id;
-    private String cardNoumber;
+    private String cardNumber;
     private String pin;
     private int balance;
 
@@ -14,7 +14,7 @@ public class Account {
 
     public Account(int id, String cardNoumber, String pin, int balance) {
         this.id = id;
-        this.cardNoumber = cardNoumber;
+        this.cardNumber = cardNoumber;
         this.pin = pin;
         this.balance = balance;
     }
@@ -27,12 +27,12 @@ public class Account {
         this.id = id;
     }
 
-    public String getCardNoumber() {
-        return cardNoumber;
+    public String getCardNumber() {
+        return cardNumber;
     }
 
-    public void setCardNoumber(String cardNoumber) {
-        this.cardNoumber = cardNoumber;
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     public String getPin() {

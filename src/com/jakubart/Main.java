@@ -18,28 +18,28 @@ public class Main {
                 choice = scanner.nextInt();
                 switch (choice) {
                     case 1:
-                        account.setCardNoumber(account.cardNoumberGenerator());
+                        account.setCardNumber(account.cardNoumberGenerator());
                         account.setPin(account.pinGenerator());
-                        while (bank.checkIfExistAccount(account.getCardNoumber())) {
-                            account.setCardNoumber(account.cardNoumberGenerator());
+                        while (bank.checkIfExistAccount(account.getCardNumber())) {
+                            account.setCardNumber(account.cardNoumberGenerator());
                         }
                         if (bank.addAccount(account)) {
                             System.out.println("\nYour card have been created");
                             System.out.println("Your card number:");
-                            System.out.println(account.getCardNoumber());
+                            System.out.println(account.getCardNumber());
                             System.out.println("Your card PIN:");
                             System.out.println(account.getPin() + "\n");
                         }
-                        account.setCardNoumber("");
+                        account.setCardNumber("");
                         account.setPin("");
                         menu.main();
                         break;
                     case 2:
                         System.out.print("Enter your card number:\n>");
-                        account.setCardNoumber(scanner.next());
+                        account.setCardNumber(scanner.next());
                         System.out.print("Enter your PIN:\n>");
                         account.setPin(scanner.next());
-                        if (bank.login(account.getCardNoumber(), account.getPin())) {
+                        if (bank.login(account.getCardNumber(), account.getPin())) {
                             System.out.println("You have successfully logged in!\n");
                             menu.account();
                             do {
@@ -47,12 +47,12 @@ public class Main {
                                 choice = scanner.nextInt();
                                 switch (choice) {
                                     case 1:
-                                        System.out.println("Balance: " + bank.checkAccountBalance(account.getCardNoumber()) + "\n");
+                                        System.out.println("Balance: " + bank.checkAccountBalance(account.getCardNumber()) + "\n");
                                         menu.account();
                                         break;
                                     case 2:
                                         System.out.print("Enter income: \n>");
-                                        if (bank.addIncome(scanner.nextInt(), account.getCardNoumber())) {
+                                        if (bank.addIncome(scanner.nextInt(), account.getCardNumber())) {
                                             System.out.println("Income was added!");
                                         }
                                         menu.account();
@@ -61,7 +61,7 @@ public class Main {
                                         System.out.println("Transfer");
                                         System.out.print("Enter card number:\n>");
                                         String transferCard = scanner.next();
-                                        if (transferCard.equals(account.getCardNoumber())) {
+                                        if (transferCard.equals(account.getCardNumber())) {
                                             System.out.println("You can't transfer money to the same account!\n");
                                             menu.account();
                                         } else if (account.luhnaAlgorithmGenerator(transferCard.toCharArray()) != Integer.parseInt(String.valueOf(transferCard.charAt(transferCard.length() - 1)))) {
@@ -73,10 +73,10 @@ public class Main {
                                         } else {
                                             System.out.print("Enter how much money you want to transfer::\n>");
                                             int amount = scanner.nextInt();
-                                            if (amount > bank.checkAccountBalance(account.getCardNoumber())) {
+                                            if (amount > bank.checkAccountBalance(account.getCardNumber())) {
                                                 System.out.println("Not enough money!\n");
                                             } else {
-                                                if (bank.doTransfer(amount, transferCard, account.getCardNoumber())) {
+                                                if (bank.doTransfer(amount, transferCard, account.getCardNumber())) {
                                                     System.out.println("Success!\n");
                                                 }
                                             }
@@ -84,19 +84,19 @@ public class Main {
                                         }
                                         break;
                                     case 4:
-                                        if (bank.closeAccount(account.getCardNoumber())) {
+                                        if (bank.closeAccount(account.getCardNumber())) {
                                             System.out.println("The account has been closed!");
 
                                         }
                                         account.setId(0);
-                                        account.setCardNoumber("");
+                                        account.setCardNumber("");
                                         account.setPin("");
                                         account.setBalance(0);
                                         menu.main();
                                         break;
                                     case 5:
                                         account.setId(0);
-                                        account.setCardNoumber("");
+                                        account.setCardNumber("");
                                         account.setPin("");
                                         account.setBalance(0);
                                         System.out.println("You have successfully logged out!\n");
@@ -108,7 +108,7 @@ public class Main {
                                 }
                             } while (choice < 4);
                         } else {
-                            account.setCardNoumber("");
+                            account.setCardNumber("");
                             account.setPin("");
                             System.out.println("Wrong card number or PIN!\n");
                             menu.main();
