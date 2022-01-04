@@ -18,10 +18,10 @@ public class Main {
                 choice = scanner.nextInt();
                 switch (choice) {
                     case 1:
-                        account.setCardNumber(account.cardNoumberGenerator());
+                        account.setCardNumber(account.cardNumberGenerator());
                         account.setPin(account.pinGenerator());
                         while (bank.checkIfExistAccount(account.getCardNumber())) {
-                            account.setCardNumber(account.cardNoumberGenerator());
+                            account.setCardNumber(account.cardNumberGenerator());
                         }
                         if (bank.addAccount(account)) {
                             System.out.println("\nYour card have been created");
