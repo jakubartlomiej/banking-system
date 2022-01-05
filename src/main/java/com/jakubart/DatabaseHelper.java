@@ -51,7 +51,7 @@ public class DatabaseHelper {
         String sql = "INSERT INTO card (number, pin) VALUES (?,?)";
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, account.getCardNoumber());
+            pstmt.setString(1, account.getCardNumber());
             pstmt.setString(2, account.getPin());
             pstmt.executeUpdate();
             status = true;

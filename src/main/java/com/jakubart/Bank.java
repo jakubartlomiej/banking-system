@@ -21,10 +21,10 @@ public class Bank {
         return databaseHelper.loginAccount(card, pin);
     }
 
-    public int checkAccountBalance(String cardNoumber) {
+    public int checkAccountBalance(String cardNumber) {
         int balance = 0;
-        if (databaseHelper.findByCardNumber(cardNoumber) != null) {
-            balance = Objects.requireNonNull(databaseHelper.findByCardNumber(cardNoumber)).getBalance();
+        if (databaseHelper.findByCardNumber(cardNumber) != null) {
+            balance = Objects.requireNonNull(databaseHelper.findByCardNumber(cardNumber)).getBalance();
         }
         return balance;
     }
