@@ -1,9 +1,13 @@
 package com.jakubart;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 
-public class DatabaseHelper {
 
+public class DatabaseHelper {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class);
     private static final String URL = "jdbc:sqlite:";
     public String urlDatabase;
 
@@ -11,8 +15,8 @@ public class DatabaseHelper {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(URL + urlDatabase);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LOGGER.error("SQL Exception - connection to database failed!");
         }
         return conn;
     }
@@ -24,8 +28,8 @@ public class DatabaseHelper {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LOGGER.error("SQL Exception - created database failed!");
         }
         createTableCard(urlFileDb);
     }
@@ -40,9 +44,8 @@ public class DatabaseHelper {
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
-        } catch (SQLException throwables) {
-            System.out.println("Unable to create table");
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LOGGER.error("SQL Exception - unable to create table 'card'!");
         }
     }
 
@@ -55,8 +58,8 @@ public class DatabaseHelper {
             pstmt.setString(2, account.getPin());
             pstmt.executeUpdate();
             status = true;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LOGGER.error("SQL Exception - unable to add new account!");
         }
         return status;
     }
@@ -73,8 +76,8 @@ public class DatabaseHelper {
                         , rs.getString("pin")
                         , rs.getInt("balance"));
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LOGGER.error("SQL Exception - unable to find account by card number");
         }
         return null;
     }
@@ -90,8 +93,8 @@ public class DatabaseHelper {
             if (rs.next()) {
                 status = true;
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LOGGER.error("SQL Exception - unable to login account");
         }
         return status;
     }
@@ -105,8 +108,8 @@ public class DatabaseHelper {
             pstmt.setString(2, cardNumber);
             pstmt.executeUpdate();
             status = true;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LOGGER.error("SQL Exception - unable to add income to balance");
         }
         return status;
     }
@@ -139,13 +142,13 @@ public class DatabaseHelper {
             pstmt2.executeUpdate();
             conn.commit();
             status = true;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LOGGER.error("SQL Exception - unable to make transfer");
         }
         return status;
     }
 
-    public boolean deleteAccount(String cardNumber){
+    public boolean deleteAccount(String cardNumber) {
         boolean status = false;
         String sql = "DELETE FROM card where number = ?";
         try (Connection conn = this.getConnection();
@@ -153,8 +156,8 @@ public class DatabaseHelper {
             pstmt.setString(1, cardNumber);
             pstmt.executeUpdate();
             status = true;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LOGGER.error("SQL Exception - unable to delete account");
         }
         return status;
 

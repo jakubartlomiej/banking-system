@@ -1,9 +1,13 @@
 package com.jakubart;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -80,8 +84,7 @@ public class Main {
                 }
             }
         } catch (InputMismatchException e) {
-            System.out.println("Error input parameter");
-            System.out.println(e.getMessage());
+            LOGGER.error("InputMismatchException - error input parameter");
         }
     }
 }
