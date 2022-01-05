@@ -68,22 +68,21 @@ public class Account {
     }
 
     public int luhnaAlgorithmGenerator(char[] cardNumber) {
-        int sumCardNumbers = 0;
+        int lastNumberInCard = 0;
         for (int i = 0; i < cardNumber.length - 1; i++) {
-            int temp = 0;
+            int multiplyNumber = 0;
             if (i % 2 == 0) {
-                temp = Integer.parseInt(String.valueOf(cardNumber[i])) * 2;
-                if (temp > 9) {
-                    temp = temp - 9;
+                multiplyNumber = Integer.parseInt(String.valueOf(cardNumber[i])) * 2;
+                if (multiplyNumber > 9) {
+                    multiplyNumber = multiplyNumber - 9;
                 }
-                cardNumber[i] = Character.forDigit(temp, 10);
+                cardNumber[i] = Character.forDigit(multiplyNumber, 10);
             }
         }
         for (int i = 0; i < cardNumber.length - 1; i++) {
-            sumCardNumbers += Integer.parseInt(String.valueOf(cardNumber[i]));
+            lastNumberInCard += Integer.parseInt(String.valueOf(cardNumber[i]));
         }
-        sumCardNumbers = sumCardNumbers % 10;
-        return sumCardNumbers == 0 ? 0 : 10 - sumCardNumbers % 10;
+        lastNumberInCard = lastNumberInCard % 10;
+        return lastNumberInCard == 0 ? 0 : 10 - lastNumberInCard % 10;
     }
-
 }
