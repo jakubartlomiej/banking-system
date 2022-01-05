@@ -85,4 +85,5 @@ public class Account {
         sumCardNumbers = sumCardNumbers % 10;
         return sumCardNumbers == 0 ? 0 : 10 - sumCardNumbers % 10;
     }
+
 }
