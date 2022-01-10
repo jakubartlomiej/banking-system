@@ -14,6 +14,7 @@ public class Main {
         int choice;
         Bank bank = new Bank("banking.db");
         Account account = new Account();
+        Operation operation = new Operation();
         Menu menu = new Menu();
         menu.printMainMenu();
         try {
@@ -28,7 +29,7 @@ public class Main {
                             account.setCardNumber(account.cardNumberGenerator());
                         }
                         if (bank.addAccount(account)) {
-                            menu.printCreatedAccount(account);
+                            operation.printCreatedAccount(account);
                         }
                         account.setPin("");
                         account.setCardNumber("");
@@ -47,23 +48,23 @@ public class Main {
                                 choice = scanner.nextInt();
                                 switch (choice) {
                                     case 1:
-                                        menu.printAccountBalance(bank, account);
+                                        operation.printAccountBalance(bank, account);
                                         menu.printAccountMenu();
                                         break;
                                     case 2:
-                                        menu.createIncome(scanner, bank, account);
+                                        operation.createIncome(scanner, bank, account);
                                         menu.printAccountMenu();
                                         break;
                                     case 3:
-                                        menu.makeTransfer(scanner, bank, account);
+                                        operation.makeTransfer(scanner, bank, account, menu);
                                         break;
                                     case 4:
-                                        menu.closeAccount(bank, account);
-                                        menu.logOut(account);
+                                        operation.closeAccount(bank, account);
+                                        operation.logOut(account);
                                         menu.printMainMenu();
                                         break;
                                     case 5:
-                                        menu.logOut(account);
+                                        operation.logOut(account);
                                         System.out.println("You have successfully logged out!\n");
                                         menu.printMainMenu();
                                         break;
@@ -73,7 +74,7 @@ public class Main {
                                 }
                             } while (choice < 4);
                         } else {
-                            menu.wrongCredential(account);
+                            operation.wrongCredential(account);
                             menu.printMainMenu();
                         }
                         break;
